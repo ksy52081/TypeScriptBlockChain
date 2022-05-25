@@ -19,7 +19,7 @@ function divide(a,b) {
     return a/b
 }
 
-divide(2,3) 
+divide(2,3)  
 같은 상황일 때 나눗셈을 하기를 기대하고 만든다.
 
 하지만
@@ -38,3 +38,54 @@ nico.hello();
 nico 안에 hello 라는 함수가 정의되지 않았음을 누가 봐도 알지만
 자바스크립트는 에러날 거라는 걸 몰라서 직접 돌리고 나서야
 "아, 잘못되었구나"를 안다는 거다.
+
+
+#2.0 타입스크립트는 그대로 수행되는 것이 아니라
+그 코드를 컴파일 하면 일반적인 js 코드가 된다.
+하지만, 타입스크립트 코드에 에러가 있으면 그 코드는 JS로 컴파일 되지 않는다.
+
+무사히 컴파일 됬다는 것은 타입스크립트 코드도 제대로 작성된 것이고
+데이터 타입에도 문제가 없었다는 뜻이다.
+
+수강생 노트1)
+타입스크립트 코드 테스트
+https://www.typescriptlang.org/play
+
+타입스크립트 핸드북
+https://typescript-kr.github.io/pages/basic-types.html
+
+타입스크립트란?
+1.TypeScript는 JavaScript에 추가적인 구문을 추가하여 editor와의 단단한 통합을 지원합니다. editor에서 초기에 오류를 잡을 수 있습니다.
+
+2. TypeScript 코드는 JavaScript가 실행되는 모든 곳(브라우저, Node.js 또는 Deno 및 앱 등)에서 JavaScript로 변환될 수 있습니다.
+
+3. TypeScript는 JavaScript를 이해하고 타입 추론(type inference)을 사용하여 추가 코드 없이도 훌륭한 도구를 제공합니다.
+
+
+#2.1 
+
+TypeScript는 두가지를 결합했다.
+
+1. 아니면 그냥 js 처럼 변수만 생성하고 넘어가도 된다. ~ 여기서 좋은 점은 tS가 타입을 추론해준다는 것이다.
+2. 데이터와 변수의 타입을 명시적으로 정의할 수 있다.
+
+1) js처럼 변수만 생성해도 찰떡같이 TS가 알아먹는 경우
+let a = "hello"
+a = "bye"
+는 문제 없다. (string -> string 이기 때문에)
+
+but,
+a = 1
+은 에러가 발생한다. (a는 string이라는 걸 알고 있는 상태에서 string -> integer 이기 때문에)
+
+2) 데이터와 변수의 타입을 명시적으로 정의하는 경우
+let b : boolean = "x"
+let b : boolean = true
+type checker가 b 변수의 값이 정의한 대로 boolean인지 확인해준다.
+
+let c = [1,2,3]
+let c : number[] = [1,2,3]
+과 같다.
+이 숫자 list인 c는
+c.push("1")은 작동하지 않고 에러를 출력한다
+string을 number의 array에 집어넣으려고 하는 것이기 때문,
