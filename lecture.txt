@@ -89,3 +89,110 @@ let c : number[] = [1,2,3]
 이 숫자 list인 c는
 c.push("1")은 작동하지 않고 에러를 출력한다
 string을 number의 array에 집어넣으려고 하는 것이기 때문,
+
+
+#2.2 
+optional 타입
+
+const player = {
+    name : "SY"
+}
+
+타입스크립트가 player 안에 있는 name 은 string이라고 추론함
+
+const player : object = {
+    name : "SY"
+} 
+
+로 시작할 수 있지만, 이 타입은 쓸모가 없다.
+만일 object라고 정의해버리마녀, typescript는 player.name이 존재하는지 모른다.
+
+object 타입에는 name 요소가 없다고 에러가 뜬다.
+
+player 안에 있는 요소들의 타입 정의는 아래처럼 작성해 정의내릴 수 있다.
+const player : {
+    name : string;
+    age : number;
+} = {
+    name : "SY"
+}
+
+이렇게만 작성하면
+Property 'age' is missing in type '{ name: string; }' but required in type '{ name: string; age: number; }'.
+로 age가 빠진 것에 대해 에러를 출력한다.
+하지만 
+
+const player : {
+    name : string;
+    age? : number;
+} = {
+    name : "SY"
+}
+처럼 물음표를 붙이게 되면, 요인이 없더라도 오류를 출력하지 않는다.
+사실상 
+age? : number 는
+age : number or undefined 와 같다. (Optional Parameter)
+
+if(player.age < 10){}
+을 하면, age가 undefined 일 수 있다고 에러를 출력한다 그러므로
+
+if(player.age && player.age < 10){}
+로 존재 여부와 조건을 같이 붙여줘서 더 안정성 있게 코드를작성한다.
+
+
+
+여기서
+const playerNico : {
+    name : string;
+    age? : number;
+} = {
+    name:"nico"
+}
+
+const playerSY : {
+    name : string;
+    age? : number;
+} = {
+    name:"SY",
+    age:13
+}
+// 같은 것을 반복하는것은 비효율적이다.
+
+이경우에는 alias 타입을 생성할 수 있다.
+
+type Player ={
+    name : string;
+    age? : number;
+}
+//Player는 대문자!
+
+const Nico : Player = {
+    name:"nico"
+}
+
+const SY : Player = {
+    name:"SY",
+    age:13
+} 
+
+형태로 압축이 가능하다.
+
+const let object list 등 변수에 타입을 할당하는 방법을 배웠다.
+그러면 함수는?
+
+function playerMaker(name:string){
+    return{
+        name:name
+    }
+}
+
+function playerMaker(name:string) : Player{
+    return{
+        name:name
+    }
+}
+const nico = playerMaker("nico")
+nico.age = 12
+
+화살표 함수로는 어떻게 똑같이 쓸 수 있나?
+const playerMaker = (name:string) : Player => ({name})
