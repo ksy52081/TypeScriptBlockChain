@@ -73,3 +73,7 @@ numlist.push(3) //readonly가 들어가면 Property 'push' does not exist on typ
 //push filter, map 등 list를 변화시키는 모든 함수들이 비활성화된다.
 
 Tuple 
+
+function hello(): never {
+    return "x"
+} 
