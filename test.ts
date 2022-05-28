@@ -77,3 +77,12 @@ Tuple
 function hello(): never {
     return "x"
 } 
+
+type AddType2  = {
+    (a:number, b:number) : number
+    (a:number, b:number, c:number) : number
+}
+
+const add : AddType2 = (a,b,c) =>{
+    return a+b
+}
