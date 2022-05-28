@@ -57,3 +57,19 @@ const playerSY : {
     age:13
 }
 // 같은 것을 반복하는것은 비효율적이다.
+
+type age = number;
+type name = string;
+type Player = {
+    readonly name : name,
+    age? : age
+}
+
+const playerMaker = (name:string) : Player => {(name)}
+const nico =playerMaker("nico")
+
+const numlist: readonly number[] = [1,2,3,4]
+numlist.push(3) //readonly가 들어가면 Property 'push' does not exist on type 'readonly number[] 에러를 출력한다
+//push filter, map 등 list를 변화시키는 모든 함수들이 비활성화된다.
+
+Tuple 

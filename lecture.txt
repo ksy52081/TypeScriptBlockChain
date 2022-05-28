@@ -196,3 +196,19 @@ nico.age = 12
 
 화살표 함수로는 어떻게 똑같이 쓸 수 있나?
 const playerMaker = (name:string) : Player => ({name})
+
+
+#2.3
+
+Readonly 타입
+tuple : array이지만, 최소한의 길이가 있어야 하고, 특정 위치에 특정 타입이 있어야 한다.
+
+const playerTuple : [string, number, boolean] = ["SY", 12, true]
+//최소한 3개 이상의 아이템이 들어가야 하고, 처음 세개의 아이템은 각각 string, number, boolean 타입이어야 한다.
+
+const playerTupleReadOnly : readonly [string, number, boolean] = ["SY", 12, true]
+
+let a : undefined = undefined;
+let b : null = null;
+let c =[];
+//let c : any[] = [];
