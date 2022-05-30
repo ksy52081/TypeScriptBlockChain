@@ -494,3 +494,96 @@ type Superprint{
     <TypePlaceholder>(arr: TypePlaceholder[]) : TypePlaceholder
 }
 const superPrint : Superprint = (arr) => arr[0]
+
+
+※ generic type은 어떻게든 call signiture를 작성해준다.
+any type을 쓰지 않는 이유는 이 점에 있다.
+any type은 call signiture를 찾아서 작성하는게 아니라 타입을 무시하겠다는 선언이다.
+
+//////////////// 예시 ////////////////////
+type Superprint = {
+    <T>(arr: T[]) : T
+}
+const printFirst : Superprint = (arr) => arr[0]
+const d = superPrint([1,true,false,"hello"])
+
+d.toUpperCase 가 문제가 있음을 미리 알 수 있지만, 
+(generic으로 call signiture가 작성되기 때문에, 현재 타입의 데이터에 toUpperCase()함수가 적합하지 않음을 알 수 있다.)
+
+//////////////// 예시 ////////////////////
+type Superprint = {
+    (arr: any[]) : any
+}
+const printFirst : Superprint = (arr) => arr[0]
+const d = superPrint([1,true,false,"hello"])
+
+의 경우에는 
+d.toUpperCase 가 문제가 있음을 미리 알수 없다.
+
+
+generic 이 하나가 아니라 복수개를 사용하고 싶을 때에는?
+type Superprint = {
+    <T, V>(a: T[], b:M) : T
+}
+
+수강생 노트1
+Generics
+
+제네릭은 C#이나 Java와 같은 언어에서 재사용 가능한 컴포넌트를 만들기 위해 사용하는 기법입니다. 단일 타입이 아닌 다양한 타입에서 작동할 수 있는 컴포넌트를 생성할 수 있습니다.
+(구체적인 타입을 지정하지 않고 다양한 인수와 리턴 값에 대한 타입을 처리할 수 있다.)
+타입스크립트에서 제네릭을 통해 인터페이스, 함수 등의 재사용성을 높일 수 있습니다.
+```
+function identity< Type >(arg: Type): Type {
+return arg;
+}
+
+// 제네릭 화살표 함수 (tsx기준)
+const identity=< Type extends {} >(arg: Type):Type => {
+return arg;
+}
+
+let output = identity< string >("myString"); // 첫 번째 방법
+let output = identity("myString"); // 두 번째 방법
+// 두 번째 방법은 type argument inference(타입 인수 유추)를 사용합니다. 즉, 컴파일러가 전달하는 인수 유형에 따라 자동으로 Type 값을 설정하기를 원합니다.
+```
+https://www.typescriptlang.org/docs/handbook/2/generics.html
+
+
+수강생 노트2
+그렇다면 그냥 any를 넣는 것과 Generic의 차이는 무엇일까?
+
+type SuperPrint = {
+(arr: any[]): any
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+let a = superPrint([1, "b", true]);
+// pass
+a.toUpperCase();
+
+any를 사용하면 위와 같은 경우에도 에러가 발생하지 않는다
+
+type SuperPrint = {
+(arr: T[]): T
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+let a = superPrint([1, "b", true]);
+// error
+a.toUpperCase();
+
+Generic의 경우 에러가 발생해 보호받을 수 있다
+* Call Signature를 concrete type으로 하나씩 추가하는 형태이기 때문!
+
+type SuperPrint = {
+(arr: T[], x: M): T
+}
+
+const superPrint: SuperPrint = (arr, x) => arr[0]
+
+let a = superPrint([1, "b", true], "hi");
+
+위와 같이 복수의 Generic을 선언해 사용할 수 있다
+

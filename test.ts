@@ -86,14 +86,26 @@
 // const add : AddType2 = (a,b,c) =>{
 //     return a+b
 
-type Superprint{
+type Superprint = {
     <T>(arr: T[]) : void
+    // (arr: any[]) : void
 }
 const superPrint : Superprint = (arr) => {
     arr.forEach(i => console.log(i))
+    
 }
 
-type FirstPrintType{
+type FirstPrintType = {
 <TypePlaceholder>(arr: TypePlaceholder[]) : TypePlaceholder
 }
 const printFirst : FirstPrintType = (arr) => arr[0]
+
+
+const a = superPrint([1,2,3,4])
+//const superPrint: <number>(arr: number[]) => void
+const b = superPrint([true,false,false])
+//const superPrint: <boolean>(arr: boolean[]) => void
+const c = superPrint(["a", "b", "c", "d"])
+//const superPrint: <string>(arr: string[]) => void
+const d = superPrint([1,true,false,"hello"])
+//const superPrint: <string | number | boolean>(arr: (string | number | boolean)[]) => void
