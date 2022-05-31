@@ -587,3 +587,64 @@ let a = superPrint([1, "b", true], "hi");
 
 위와 같이 복수의 Generic을 선언해 사용할 수 있다
 
+#3.4 conclusions
+
+generic을 이용해 call signiture 를 작성하는 경우는 상대적으로 드물 것이다
+
+즉 라이브러리를 만들거나, 다른 개발자가 사용할 기능을 개발하는 경우에는 generic 이 유용할 것이다.
+
+type FirstPrintType = {
+<TypePlaceholder>(arr: TypePlaceholder[]) : TypePlaceholder
+}
+const printFirst : FirstPrintType = (arr) => arr[0]
+
+// 똑같다.
+
+function superPrint<V>(a: V[]){
+    return a[0]
+}
+
+항상 타입스크립트가 타입을 유추하도록 하는 것이 좋다.
+
+
+
+generic 의 다른 사용방법!!!
+call signiture 외에 사용하는 방법이 있다.
+
+타입을 생성하기 / 타입을 확장하기
+
+
+type Player<T> = {
+    name : string
+    extraInfo : T 
+}
+
+const SY : Player<{favFood:string}> ={
+    name : "SY Kim",
+    extraInfo: {
+        favFood:"Chicken"
+    }
+
+}
+
+
+Player<{favFood:string}> 자체는
+
+'''
+type SYPlayer = Player<SYExtra>
+
+type SYExtra = {
+    favFood : string
+}
+'''
+로 코드를 확장 할 수도 있다.
+
+
+function printAllNumbers(arr: number[]){}
+function printAllNumbers(arr: Array<number>){}
+
+
+
+in React.js 에서....
+useState<number>()  
+를 사용하면, 타입이 number로 한정시킬 수 있다
