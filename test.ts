@@ -106,65 +106,100 @@
 
 //#4.0 Class
 
-class Player {
+// class Player {
+//   constructor(
+//     private firstName: string,
+//     private lastName: string,
+//     public nickName: string
+//   ) {}
+// }
+
+// const sy = new Player("Sangyoon", "kim", "pierre");
+
+// // sy.firstName
+// //Property 'firstName' is private and only accessible within class 'Player'
+// sy.nickName;
+
+// ////////////////////Abstract Class /////////////////////////
+
+// abstract class User {
+//   constructor(
+//     private firstName: string,
+//     private lastName: string,
+//     public nickName: string
+//   ) {}
+//   //private getFullName(){ //private를 쓰면 외부에서 이 함수를 쓸 수 없다.
+//   getFullName() {
+//     return `$(this.firstName) $(this.lastName)`; //method의 implementation(구현)
+//   }
+// }
+
+// class Player2 extends User {}
+// const sy2 = new Player2("Sangyoon", "kim", "pierre");
+// sy2.getFullName();
+
+// //////////////Abstract Method //////////////////////////
+
+// abstract class User3 {
+//   constructor(
+//     private firstName: string,
+//     public lastName: string,
+//     protected nickName: string // private nickName : string,
+//   ) {}
+//   abstract getfirstName(): void;
+//   abstract getlastName(): void;
+//   abstract getNickname(): void;
+// }
+
+// class Player3 extends User3 {
+//   getfirstName(): void {
+//     console.log(this.firstName); // private는 정의한 클래스 밖에서는 사용할 수 없다.
+//   }
+//   getlastName(): void {
+//     console.log(this.lastName); // public은 어디에서든 쓸 수 있다.
+//   }
+//   getNickname(): void {
+//     console.log(this.nickName); // protected는 정의한 클래스와, 상속한 클래스에서 쓸 수 있다.
+//   }
+// }
+
+// const sy3 = new Player3("Sangyoon", "kim", "pierre");
+
+// sy3.firstName; // private는 정의한 클래스 밖에서는 사용할 수 없다.
+// sy3.lastName; // public은 어디에서든 사용할 수 있다.
+// sy3.nickname; // 상속한 클래스 내부가 아니므로 protected 는 쓸 수 없다.
+
+
+// #4.1
+type Words = {
+  [key:string]:string // Words타입이 string만을 property로 가지는 오브젝트다!
+}
+
+class Dict {
+  private words : Words //constructor에서 직접 초기화 되지 않는 property이다.
+  constructor(){
+    this.words = {}
+  }
+  add(word:Word){
+    if(this.words[word.term]===undefined){
+      this.words[word.term] = word.definition;
+    }
+  }
+  getDef(term:string){
+    return this.words[term]
+  }
+}
+
+class Word {
   constructor(
-    private firstName: string,
-    private lastName: string,
-    public nickName: string
-  ) {}
+    public term : string,
+    public definition : string
+  ){}
 }
 
-const sy = new Player("Sangyoon", "kim", "pierre");
+const kimchi = new Word("kimchi", "korean pickled vegetable")
 
-// sy.firstName
-//Property 'firstName' is private and only accessible within class 'Player'
-sy.nickName;
+const dict = new Dict()
 
-////////////////////Abstract Class /////////////////////////
-
-abstract class User {
-  constructor(
-    private firstName: string,
-    private lastName: string,
-    public nickName: string
-  ) {}
-  //private getFullName(){ //private를 쓰면 외부에서 이 함수를 쓸 수 없다.
-  getFullName() {
-    return `$(this.firstName) $(this.lastName)`; //method의 implementation(구현)
-  }
-}
-
-class Player2 extends User {}
-const sy2 = new Player2("Sangyoon", "kim", "pierre");
-sy2.getFullName();
-
-//////////////Abstract Method //////////////////////////
-
-abstract class User3 {
-  constructor(
-    private firstName: string,
-    public lastName: string,
-    protected nickName: string // private nickName : string,
-  ) {}
-  abstract getfirstName(): void;
-  abstract getlastName(): void;
-  abstract getNickname(): void;
-}
-
-class Player3 extends User3 {
-  getfirstName(): void {
-    console.log(this.firstName); // private는 정의한 클래스 밖에서는 사용할 수 없다.
-  }
-  getlastName(): void {
-    console.log(this.lastName); // public은 어디에서든 쓸 수 있다.
-  }
-  getNickname(): void {
-    console.log(this.nickName); // protected는 정의한 클래스와, 상속한 클래스에서 쓸 수 있다.
-  }
-}
-
-const sy3 = new Player3("Sangyoon", "kim", "pierre");
-
-sy3.firstName; // private는 정의한 클래스 밖에서는 사용할 수 없다.
-sy3.lastName; // public은 어디에서든 사용할 수 있다.
-sy3.nickname; // 상속한 클래스 내부가 아니므로 protected 는 쓸 수 없다.
+dict.add(kimchi);
+dict.getDef("kimchi");
