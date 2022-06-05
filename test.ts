@@ -170,36 +170,73 @@
 // sy3.nickname; // 상속한 클래스 내부가 아니므로 protected 는 쓸 수 없다.
 
 
-// #4.1
-type Words = {
-  [key:string]:string // Words타입이 string만을 property로 가지는 오브젝트다!
+// // #4.1
+// type Words = {
+//   [key:string]:string // Words타입이 string만을 property로 가지는 오브젝트다!
+// }
+
+// class Dict {
+//   private words : Words //constructor에서 직접 초기화 되지 않는 property이다.
+//   constructor(){
+//     this.words = {}
+//   }
+//   add(word:Word){
+//     if(this.words[word.term]===undefined){
+//       this.words[word.term] = word.definition;
+//     }
+//   }
+//   getDef(term:string){
+//     return this.words[term]
+//   }
+//   static hello(){
+//       return "hello"
+//   }
+// }
+
+// class Word {
+//   constructor(
+//     public term : string,
+//     public definition : string
+//   ){}
+// }
+
+// const kimchi = new Word("kimchi", "korean pickled vegetable")
+
+// const dict = new Dict()
+
+// dict.add(kimchi);
+// dict.getDef("kimchi");
+
+// #4.2
+interface User {
+    name : string
+}
+interface Player extends User {
+}
+const sy : Player ={
+    name : "sykim"
+}
+//is same
+type UserT = {
+    name : string
+}
+type PlayerT = UserT & {}
+const syT : Player ={
+    name : "sykim"
 }
 
-class Dict {
-  private words : Words //constructor에서 직접 초기화 되지 않는 property이다.
-  constructor(){
-    this.words = {}
-  }
-  add(word:Word){
-    if(this.words[word.term]===undefined){
-      this.words[word.term] = word.definition;
-    }
-  }
-  getDef(term:string){
-    return this.words[term]
-  }
+interface Human {
+    name : string
+}
+interface Human {
+    age : number
+}
+interface Human {
+    gender : "male" | "female"
 }
 
-class Word {
-  constructor(
-    public term : string,
-    public definition : string
-  ){}
+interface Human2 {
+    name: string,
+    age : number,
+    gender : "male" | "female"
 }
-
-const kimchi = new Word("kimchi", "korean pickled vegetable")
-
-const dict = new Dict()
-
-dict.add(kimchi);
-dict.getDef("kimchi");
