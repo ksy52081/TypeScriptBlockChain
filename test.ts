@@ -207,36 +207,127 @@
 // dict.add(kimchi);
 // dict.getDef("kimchi");
 
-// #4.2
-interface User {
-    name : string
+// // #4.2
+// interface User {
+//     name : string
+// }
+// interface Player extends User {
+// }
+// const sy : Player ={
+//     name : "sykim"
+// }
+// //is same
+// type UserT = {
+//     name : string
+// }
+// type PlayerT = UserT & {}
+// const syT : Player ={
+//     name : "sykim"
+// }
+
+// interface Human {
+//     name : string
+// }
+// interface Human {
+//     age : number
+// }
+// interface Human {
+//     gender : "male" | "female"
+// }
+
+// interface Human2 {
+//     name: string,
+//     age : number,
+//     gender : "male" | "female"
+// }
+
+
+// #4.3
+/* 아래는 abstract class 를 이용한 정의 */
+abstract class User {
+  constructor(
+      protected firstName:string,
+      protected lastName : string,
+  ) {}
+  abstract sayHi(name:string): string
+  abstract fullName():string
 }
-interface Player extends User {
+
+class Player extends User {
+  fullName(){
+      return `${this.firstName} ${this.lastName}`
+  }
+  sayHi(name:string){
+      return `hello ${name}. My name is ${this.fullName()}`
+  }
 }
-const sy : Player ={
-    name : "sykim"
+//추상 클래스는 인스턴스를 만드는걸 허용하지 않는다.
+// 즉, new User() 가 불가능하다는 뜻,
+// 만들고 싶다면, 추상 클래스를 상속하는 새로운 클래스를 만들어야 한다.
+
+
+/* 아래는 Interface를 이용한 정의 */
+// inplements는 js에 존재하지 않는 키워드이다. (TS에만 있고 JS에는 없다.)
+interface User_I {
+  firstName : string,
+  lastName : string,
+  sayHi(name:string) : string
+  fullName():string
 }
-//is same
-type UserT = {
-    name : string
+
+class Player_I implements User_I {
+    constructor(
+    public firstName:string,
+    public lastName : string, //interface의 경우 public이어야 한다. protected도 유효하지 않음
+    // protected lastName : string,
+) {}
+fullName(){
+    return `${this.firstName} ${this.lastName}`
 }
-type PlayerT = UserT & {}
-const syT : Player ={
-    name : "sykim"
+sayHi(name:string){
+    return `hello ${name}. My name is ${this.fullName()}`
+}
 }
 
 interface Human {
-    name : string
-}
-interface Human {
-    age : number
-}
-interface Human {
-    gender : "male" | "female"
+  health : number
 }
 
-interface Human2 {
-    name: string,
-    age : number,
-    gender : "male" | "female"
+class Player_I2 implements User_I, Human {
+  constructor(
+    public firstName:string,
+    public lastName : string, 
+    public health: number
+) {}
+fullName(){
+    return `${this.firstName} ${this.lastName}`
+}
+sayHi(name:string){
+    return `hello ${name}. My name is ${this.fullName()}`
+}
+}
+
+function makeUser(user:User_I){
+  return "hi"
+}
+
+makeUser({
+  firstName:"sy",
+  lastName:"kim",
+  fullName: () => "xx",
+  sayHi: (name) => "string"
+})
+
+function showUser(user:User_I):User_I{
+  return{
+    firstName:"sy",
+    lastName:"kim",
+    fullName: () => "xx",
+    sayHi: (name) => "string"
+  }
+
+  // return new User_I { ~~~~}
+  // 인터페이스로 조건이 잡힐 경우 return 할 대상을 
+  // 클래스로 조건이 잡힐 때처럼 new XXX 를 할 필요 없다.
+  // 그냥 인터페이스에서 요구하는 조건을 오브젝트 안에 빠짐없이 넣어서 리턴만 해주면 만족함.
 }
