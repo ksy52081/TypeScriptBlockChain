@@ -331,3 +331,56 @@ function showUser(user:User_I):User_I{
   // 클래스로 조건이 잡힐 때처럼 new XXX 를 할 필요 없다.
   // 그냥 인터페이스에서 요구하는 조건을 오브젝트 안에 빠짐없이 넣어서 리턴만 해주면 만족함.
 }
+
+//#4.4 Recap
+
+type PlayerA = {
+  name: string
+}
+type PlayerAA = PlayerA & {
+  lastName : string
+}
+// type PlayerAA = {
+//   health : number
+// } //Duplicate identifier 'PlayerAA'
+const playerA : PlayerAA ={
+  name :"sy",
+  lastName:"Kim"
+}
+
+interface PlayerB {
+  name: string
+}
+interface PlayerBB extends PlayerB {
+  lastName : string
+}
+interface PlayerBB {
+  health:number
+} // 문제 없이 작동함
+const playerB : PlayerBB = {
+  name:"sy",
+  lastName : "Kim",
+  health : 82
+}
+
+
+
+// type 이든 interface든 상속법은 똑같다. & 둘다 추상 클래스를 대체할 수 있다.
+type PlayerT1 = {
+  firstName:string
+}
+interface PlayerI1 {
+  firstName:string
+}
+
+class UserT1 implements PlayerT1 {
+  constructor(
+    public firstName : string
+  ){}
+}
+class UserI1 implements PlayerI1 {
+  constructor(
+    public firstName : string
+  ){}
+}
+
