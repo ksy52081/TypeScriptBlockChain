@@ -242,145 +242,174 @@
 // }
 
 
-// #4.3
-/* 아래는 abstract class 를 이용한 정의 */
-abstract class User {
-  constructor(
-      protected firstName:string,
-      protected lastName : string,
-  ) {}
-  abstract sayHi(name:string): string
-  abstract fullName():string
-}
+// // #4.3
+// /* 아래는 abstract class 를 이용한 정의 */
+// abstract class User {
+//   constructor(
+//       protected firstName:string,
+//       protected lastName : string,
+//   ) {}
+//   abstract sayHi(name:string): string
+//   abstract fullName():string
+// }
 
-class Player extends User {
-  fullName(){
-      return `${this.firstName} ${this.lastName}`
-  }
-  sayHi(name:string){
-      return `hello ${name}. My name is ${this.fullName()}`
-  }
-}
-//추상 클래스는 인스턴스를 만드는걸 허용하지 않는다.
-// 즉, new User() 가 불가능하다는 뜻,
-// 만들고 싶다면, 추상 클래스를 상속하는 새로운 클래스를 만들어야 한다.
+// class Player extends User {
+//   fullName(){
+//       return `${this.firstName} ${this.lastName}`
+//   }
+//   sayHi(name:string){
+//       return `hello ${name}. My name is ${this.fullName()}`
+//   }
+// }
+// //추상 클래스는 인스턴스를 만드는걸 허용하지 않는다.
+// // 즉, new User() 가 불가능하다는 뜻,
+// // 만들고 싶다면, 추상 클래스를 상속하는 새로운 클래스를 만들어야 한다.
 
 
-/* 아래는 Interface를 이용한 정의 */
-// inplements는 js에 존재하지 않는 키워드이다. (TS에만 있고 JS에는 없다.)
-interface User_I {
-  firstName : string,
-  lastName : string,
-  sayHi(name:string) : string
-  fullName():string
-}
+// /* 아래는 Interface를 이용한 정의 */
+// // inplements는 js에 존재하지 않는 키워드이다. (TS에만 있고 JS에는 없다.)
+// interface User_I {
+//   firstName : string,
+//   lastName : string,
+//   sayHi(name:string) : string
+//   fullName():string
+// }
 
-class Player_I implements User_I {
-    constructor(
-    public firstName:string,
-    public lastName : string, //interface의 경우 public이어야 한다. protected도 유효하지 않음
-    // protected lastName : string,
-) {}
-fullName(){
-    return `${this.firstName} ${this.lastName}`
-}
-sayHi(name:string){
-    return `hello ${name}. My name is ${this.fullName()}`
-}
-}
+// class Player_I implements User_I {
+//     constructor(
+//     public firstName:string,
+//     public lastName : string, //interface의 경우 public이어야 한다. protected도 유효하지 않음
+//     // protected lastName : string,
+// ) {}
+// fullName(){
+//     return `${this.firstName} ${this.lastName}`
+// }
+// sayHi(name:string){
+//     return `hello ${name}. My name is ${this.fullName()}`
+// }
+// }
 
-interface Human {
-  health : number
-}
-
-class Player_I2 implements User_I, Human {
-  constructor(
-    public firstName:string,
-    public lastName : string, 
-    public health: number
-) {}
-fullName(){
-    return `${this.firstName} ${this.lastName}`
-}
-sayHi(name:string){
-    return `hello ${name}. My name is ${this.fullName()}`
-}
-}
-
-function makeUser(user:User_I){
-  return "hi"
-}
-
-makeUser({
-  firstName:"sy",
-  lastName:"kim",
-  fullName: () => "xx",
-  sayHi: (name) => "string"
-})
-
-function showUser(user:User_I):User_I{
-  return{
-    firstName:"sy",
-    lastName:"kim",
-    fullName: () => "xx",
-    sayHi: (name) => "string"
-  }
-
-  // return new User_I { ~~~~}
-  // 인터페이스로 조건이 잡힐 경우 return 할 대상을 
-  // 클래스로 조건이 잡힐 때처럼 new XXX 를 할 필요 없다.
-  // 그냥 인터페이스에서 요구하는 조건을 오브젝트 안에 빠짐없이 넣어서 리턴만 해주면 만족함.
-}
-
-//#4.4 Recap
-
-type PlayerA = {
-  name: string
-}
-type PlayerAA = PlayerA & {
-  lastName : string
-}
-// type PlayerAA = {
+// interface Human {
 //   health : number
-// } //Duplicate identifier 'PlayerAA'
-const playerA : PlayerAA ={
-  name :"sy",
-  lastName:"Kim"
+// }
+
+// class Player_I2 implements User_I, Human {
+//   constructor(
+//     public firstName:string,
+//     public lastName : string, 
+//     public health: number
+// ) {}
+// fullName(){
+//     return `${this.firstName} ${this.lastName}`
+// }
+// sayHi(name:string){
+//     return `hello ${name}. My name is ${this.fullName()}`
+// }
+// }
+
+// function makeUser(user:User_I){
+//   return "hi"
+// }
+
+// makeUser({
+//   firstName:"sy",
+//   lastName:"kim",
+//   fullName: () => "xx",
+//   sayHi: (name) => "string"
+// })
+
+// function showUser(user:User_I):User_I{
+//   return{
+//     firstName:"sy",
+//     lastName:"kim",
+//     fullName: () => "xx",
+//     sayHi: (name) => "string"
+//   }
+
+//   // return new User_I { ~~~~}
+//   // 인터페이스로 조건이 잡힐 경우 return 할 대상을 
+//   // 클래스로 조건이 잡힐 때처럼 new XXX 를 할 필요 없다.
+//   // 그냥 인터페이스에서 요구하는 조건을 오브젝트 안에 빠짐없이 넣어서 리턴만 해주면 만족함.
+// }
+
+// //#4.4 Recap
+
+// type PlayerA = {
+//   name: string
+// }
+// type PlayerAA = PlayerA & {
+//   lastName : string
+// }
+// // type PlayerAA = {
+// //   health : number
+// // } //Duplicate identifier 'PlayerAA'
+// const playerA : PlayerAA ={
+//   name :"sy",
+//   lastName:"Kim"
+// }
+
+// interface PlayerB {
+//   name: string
+// }
+// interface PlayerBB extends PlayerB {
+//   lastName : string
+// }
+// interface PlayerBB {
+//   health:number
+// } // 문제 없이 작동함
+// const playerB : PlayerBB = {
+//   name:"sy",
+//   lastName : "Kim",
+//   health : 82
+// }
+
+
+
+// // type 이든 interface든 상속법은 똑같다. & 둘다 추상 클래스를 대체할 수 있다.
+// type PlayerT1 = {
+//   firstName:string
+// }
+// interface PlayerI1 {
+//   firstName:string
+// }
+
+// class UserT1 implements PlayerT1 {
+//   constructor(
+//     public firstName : string
+//   ){}
+// }
+// class UserI1 implements PlayerI1 {
+//   constructor(
+//     public firstName : string
+//   ){}
+// }
+
+
+//#4.5 Polymorphism
+
+interface SStorage<T> {
+  [key:string] : T //제한 되지 않은 오브젝트를 정의하게 해준다.
 }
 
-interface PlayerB {
-  name: string
-}
-interface PlayerBB extends PlayerB {
-  lastName : string
-}
-interface PlayerBB {
-  health:number
-} // 문제 없이 작동함
-const playerB : PlayerBB = {
-  name:"sy",
-  lastName : "Kim",
-  health : 82
-}
-
-
-
-// type 이든 interface든 상속법은 똑같다. & 둘다 추상 클래스를 대체할 수 있다.
-type PlayerT1 = {
-  firstName:string
-}
-interface PlayerI1 {
-  firstName:string
+class LocalStorage<T> {
+  private storage : SStorage<T> = {}
+  set(key:string, value:T){
+      this.storage[key] = value;
+  }
+  remove(key:string){
+      delete this.storage[key]
+  }
+  get(key:string):T {
+      return this.storage[key]
+  }
+  clear(){
+      this.storage={}
+  }
 }
 
-class UserT1 implements PlayerT1 {
-  constructor(
-    public firstName : string
-  ){}
-}
-class UserI1 implements PlayerI1 {
-  constructor(
-    public firstName : string
-  ){}
-}
-
+const stringStorage = new LocalStorage<string>()
+stringStorage.set("hello", "how are you")
+stringStorage.get("hello")
+const booleanStorage = new LocalStorage<boolean>();
+booleanStorage.set("xxx", false);
+booleanStorage.get("xxx")
